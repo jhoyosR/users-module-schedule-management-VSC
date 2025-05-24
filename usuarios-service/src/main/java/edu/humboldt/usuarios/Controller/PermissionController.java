@@ -1,6 +1,10 @@
-package edu.humboldt.usuarios.User;
+package edu.humboldt.usuarios.Controller;
 
 import org.springframework.web.bind.annotation.*;
+
+import edu.humboldt.usuarios.Entities.Permission;
+import edu.humboldt.usuarios.Service.PermissionService;
+
 import java.util.List;
 
 @RestController

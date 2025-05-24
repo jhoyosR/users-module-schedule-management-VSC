@@ -1,9 +1,17 @@
-package edu.humboldt.usuarios.User;
+package edu.humboldt.usuarios.Controller;
 
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.*;
+
+import edu.humboldt.usuarios.Entities.Permission;
+import edu.humboldt.usuarios.Entities.Role;
+import edu.humboldt.usuarios.Repository.PermissionRepository;
+import edu.humboldt.usuarios.Request.CreateRoleRequest;
+import edu.humboldt.usuarios.Request.UpdateRoleRequest;
+import edu.humboldt.usuarios.Service.RoleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
