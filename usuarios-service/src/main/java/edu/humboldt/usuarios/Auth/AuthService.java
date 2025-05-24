@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import edu.humboldt.usuarios.Jwt.JwtService;
 import edu.humboldt.usuarios.User.Role;
+import edu.humboldt.usuarios.User.RoleRepository;
 import edu.humboldt.usuarios.User.User;
 import edu.humboldt.usuarios.User.UserRepository;
 
@@ -21,6 +22,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final RoleRepository roleRepository;
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
@@ -33,11 +35,15 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
+        // Solo se registran los estudiantes
+        Role studentRole = roleRepository.findByName("Estudiante")
+                .orElseThrow(() -> new RuntimeException("Rol 'Estudiante' no encontrado"));
+                
         User user = User.builder()
             .username(request.getUsername())
             .password(passwordEncoder.encode( request.getPassword()))
             .email(request.getEmail())
-            .role(Role.USER)
+            .role(studentRole)
             .build();
 
         userRepository.save(user);

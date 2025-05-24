@@ -1,0 +1,60 @@
+package edu.humboldt.usuarios.User;
+
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@RestController
+@RequestMapping("/api/roles")
+public class RoleController {
+
+    @Autowired 
+    private RoleService roleService;
+    @Autowired 
+    private PermissionRepository permissionRepository;
+
+
+    @GetMapping
+    public List<Role> getAll() { 
+        return roleService.findAll(); 
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Role> getById(@PathVariable String id) {
+        return roleService.findById(id);
+    }
+
+    @PostMapping
+    public Role create(@RequestBody CreateRoleRequest request) {
+        List<Permission> permissions = permissionRepository.findAllById(request.getPermissionIds());
+        
+        Role role = new Role(null, request.getName(), request.getDescription(), permissions);
+        
+        return roleService.save(role);
+    }
+
+    @PutMapping("/{id}")
+    public Role update(@PathVariable String id, @RequestBody UpdateRoleRequest request) {
+        Optional<Role> optionalRole = roleService.findById(id);
+        if (optionalRole.isEmpty()) {
+            return null;
+        }
+
+        Role role = optionalRole.get();
+        role.setName(request.getName());
+        role.setDescription(request.getDescription());
+
+        List<Permission> permissions = permissionRepository.findAllById(request.getPermissionIds());
+        role.setPermissions(permissions);
+
+        
+        return roleService.save(role);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        roleService.deleteById(id);
+    }
+}
