@@ -13,6 +13,7 @@ import edu.humboldt.usuarios.Request.UpdateRoleRequest;
 import edu.humboldt.usuarios.Service.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @RequestMapping("/api/roles")
@@ -23,17 +24,19 @@ public class RoleController {
     @Autowired 
     private PermissionRepository permissionRepository;
 
-
+    @PreAuthorize("hasAuthority('list_role')")
     @GetMapping
     public List<Role> getAll() { 
         return roleService.findAll(); 
     }
 
+    @PreAuthorize("hasAuthority('list_role')")
     @GetMapping("/{id}")
     public Optional<Role> getById(@PathVariable String id) {
         return roleService.findById(id);
     }
 
+    @PreAuthorize("hasAuthority('create_role')")
     @PostMapping
     public Role create(@RequestBody CreateRoleRequest request) {
         List<Permission> permissions = permissionRepository.findAllById(request.getPermissionIds());
@@ -43,6 +46,7 @@ public class RoleController {
         return roleService.save(role);
     }
 
+    @PreAuthorize("hasAuthority('edit_role')")
     @PutMapping("/{id}")
     public Role update(@PathVariable String id, @RequestBody UpdateRoleRequest request) {
         Optional<Role> optionalRole = roleService.findById(id);
@@ -61,6 +65,7 @@ public class RoleController {
         return roleService.save(role);
     }
 
+    @PreAuthorize("hasAuthority('delete_role')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
         roleService.deleteById(id);

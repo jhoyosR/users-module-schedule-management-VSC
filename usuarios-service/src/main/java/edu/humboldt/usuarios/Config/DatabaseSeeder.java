@@ -38,6 +38,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 new Permission(null, "create_role"     , "Permite crear roles"),
                 new Permission(null, "edit_role"       , "Permite editar roles"),
                 new Permission(null, "delete_role"     , "Permite eliminar roles"),
+                new Permission(null, "list_permission" , "Permite listar permisos"),
                 new Permission(null, "watch_schedule"  , "Permite ver el horario")
         );
 
@@ -58,6 +59,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         Permission createRole      = permissionRepository.findByCode("create_role").orElseThrow();
         Permission editRole        = permissionRepository.findByCode("edit_role").orElseThrow();
         Permission deleteRole      = permissionRepository.findByCode("delete_role").orElseThrow();
+        Permission listPermission  = permissionRepository.findByCode("list_permission").orElseThrow();
         Permission watchSchedule   = permissionRepository.findByCode("watch_schedule").orElseThrow();
 
         List<Role> roles = List.of(
@@ -65,7 +67,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 new Role(null, "Administrador", "Administrador general del sistema con todos los permisos", List.of(
                     listUser, createUser, editUser, deleteUser,
                     listRole, createRole, editRole, deleteRole,
-                    watchSchedule
+                    watchSchedule, listPermission
                 )),
                 // Estudiante
                 new Role(null, "Estudiante", "Estudiante consulta su horario", List.of(

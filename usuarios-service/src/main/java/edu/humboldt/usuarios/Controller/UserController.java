@@ -12,6 +12,7 @@ import edu.humboldt.usuarios.Service.RoleService;
 import edu.humboldt.usuarios.Service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
@@ -25,17 +26,19 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    @PreAuthorize("hasAuthority('list_user')")
     @GetMapping
     public List<User> getAll() { 
         return userService.findAll(); 
     }
 
+    @PreAuthorize("hasAuthority('list_user')")
     @GetMapping("/{id}")
     public Optional<User> getById(@PathVariable String id) {
         return userService.findById(id);
     }
 
+    @PreAuthorize("hasAuthority('create_user')")
     @PostMapping
     public User create(@RequestBody CreateUserRequest request) {
         Optional<Role> optionalRole = roleService.findById(request.getRoleId());
@@ -48,6 +51,7 @@ public class UserController {
         return userService.save(user);
     }
 
+    @PreAuthorize("hasAuthority('edit_user')")
     @PutMapping("/{id}")
     public User update(@PathVariable String id, @RequestBody UpdateUserRequest request) {
         Optional<User> optionalUser = userService.findById(id);
@@ -69,6 +73,7 @@ public class UserController {
         return userService.save(user);
     }
 
+    @PreAuthorize("hasAuthority('delete_user')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
         userService.deleteById(id);

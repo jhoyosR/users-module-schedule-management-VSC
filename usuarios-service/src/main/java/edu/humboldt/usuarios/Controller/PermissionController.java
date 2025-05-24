@@ -1,5 +1,6 @@
 package edu.humboldt.usuarios.Controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import edu.humboldt.usuarios.Entities.Permission;
@@ -17,6 +18,7 @@ public class PermissionController {
         this.permissionService = permissionService;
     }
 
+    @PreAuthorize("hasAuthority('list_permission')")
     @GetMapping
     public List<Permission> getAllPermissions() {
         return permissionService.getAllPermissions();
