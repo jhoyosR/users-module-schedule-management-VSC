@@ -6,12 +6,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import edu.humboldt.usuarios.Entities.Role;
+import edu.humboldt.usuarios.Entities.User;
 import edu.humboldt.usuarios.Jwt.JwtService;
-import edu.humboldt.usuarios.User.Role;
-import edu.humboldt.usuarios.User.RoleRepository;
-import edu.humboldt.usuarios.User.User;
-import edu.humboldt.usuarios.User.UserRepository;
-
+import edu.humboldt.usuarios.Repository.RoleRepository;
+import edu.humboldt.usuarios.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service

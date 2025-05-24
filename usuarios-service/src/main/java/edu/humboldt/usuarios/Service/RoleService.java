@@ -1,10 +1,13 @@
-package edu.humboldt.usuarios.User;
+package edu.humboldt.usuarios.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import edu.humboldt.usuarios.Entities.Role;
+import edu.humboldt.usuarios.Repository.RoleRepository;
 
 @Service
 public class RoleService {

@@ -1,8 +1,16 @@
-package edu.humboldt.usuarios.User;
+package edu.humboldt.usuarios.Controller;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.*;
+
+import edu.humboldt.usuarios.Entities.Role;
+import edu.humboldt.usuarios.Entities.User;
+import edu.humboldt.usuarios.Request.CreateUserRequest;
+import edu.humboldt.usuarios.Request.UpdateUserRequest;
+import edu.humboldt.usuarios.Service.RoleService;
+import edu.humboldt.usuarios.Service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

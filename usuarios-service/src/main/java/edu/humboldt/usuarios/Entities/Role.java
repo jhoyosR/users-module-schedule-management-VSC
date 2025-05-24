@@ -1,8 +1,10 @@
-package edu.humboldt.usuarios.User;
+package edu.humboldt.usuarios.Entities;
 
+import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -12,13 +14,16 @@ import lombok.AllArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "permissions")
-public class Permission {
+@Document(collection = "roles")
+public class Role {
     @Id
     private String id;
 
     @Indexed(unique = true)
-    private String code;
+    private String name;        
 
     private String description;
+
+    @DBRef(lazy = true)
+    private List<Permission> permissions;
 }

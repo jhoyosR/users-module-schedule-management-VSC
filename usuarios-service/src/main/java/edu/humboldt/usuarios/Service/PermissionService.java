@@ -1,8 +1,11 @@
-package edu.humboldt.usuarios.User;
+package edu.humboldt.usuarios.Service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import edu.humboldt.usuarios.Entities.Permission;
+import edu.humboldt.usuarios.Repository.PermissionRepository;
 
 @Service
 public class PermissionService {

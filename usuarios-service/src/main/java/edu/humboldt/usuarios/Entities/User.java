@@ -1,4 +1,4 @@
-package edu.humboldt.usuarios.User;
+package edu.humboldt.usuarios.Entities;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

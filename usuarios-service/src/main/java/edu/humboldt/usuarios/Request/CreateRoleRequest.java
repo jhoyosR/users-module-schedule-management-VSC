@@ -1,4 +1,4 @@
-package edu.humboldt.usuarios.User;
+package edu.humboldt.usuarios.Request;
 
 import java.util.List;
 

@@ -1,12 +1,12 @@
 package edu.humboldt.usuarios.Config;
 
-import edu.humboldt.usuarios.User.Permission;
-import edu.humboldt.usuarios.User.PermissionRepository;
-import edu.humboldt.usuarios.User.Role;
-import edu.humboldt.usuarios.User.RoleRepository;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import edu.humboldt.usuarios.Entities.Permission;
+import edu.humboldt.usuarios.Entities.Role;
+import edu.humboldt.usuarios.Repository.PermissionRepository;
+import edu.humboldt.usuarios.Repository.RoleRepository;
 
 import java.util.List;
 
@@ -30,15 +30,15 @@ public class DatabaseSeeder implements CommandLineRunner {
     private void seedPermissions() {
         // Lista de permisos del sistema
         List<Permission> permissions = List.of(
-                new Permission(null, "list_user", "Permite listar usuarios"),
-                new Permission(null, "create_user", "Permite crear usuarios"),
-                new Permission(null, "edit_user", "Permite editar usuarios"),
-                new Permission(null, "delete_user", "Permite eliminar usuarios"),
-                new Permission(null, "list_role", "Permite listar roles"),
-                new Permission(null, "create_role", "Permite crear roles"),
-                new Permission(null, "edit_role", "Permite editar roles"),
-                new Permission(null, "delete_role", "Permite eliminar roles"),
-                new Permission(null, "watch_schedule", "Permite ver el horario")
+                new Permission(null, "list_user"      , "Permite listar usuarios"),
+                new Permission(null, "create_user"    , "Permite crear usuarios"),
+                new Permission(null, "edit_user"      , "Permite editar usuarios"),
+                new Permission(null, "delete_user"    , "Permite eliminar usuarios"),
+                new Permission(null, "list_role"      , "Permite listar roles"),
+                new Permission(null, "create_role"    , "Permite crear roles"),
+                new Permission(null, "edit_role"      , "Permite editar roles"),
+                new Permission(null, "delete_role"    , "Permite eliminar roles"),
+                new Permission(null, "watch_schedule" , "Permite ver el horario")
         );
 
         permissions.forEach(p -> {
@@ -50,15 +50,15 @@ public class DatabaseSeeder implements CommandLineRunner {
     private void seedRoles() {
 
         // Buscar permisos por código
-        Permission listUser = permissionRepository.findByCode("list_user").orElseThrow();
-        Permission createUser = permissionRepository.findByCode("create_user").orElseThrow();
-        Permission editUser = permissionRepository.findByCode("edit_user").orElseThrow();
-        Permission deleteUser = permissionRepository.findByCode("delete_user").orElseThrow();
-        Permission listRole = permissionRepository.findByCode("list_role").orElseThrow();
-        Permission createRole = permissionRepository.findByCode("create_role").orElseThrow();
-        Permission editRole = permissionRepository.findByCode("edit_role").orElseThrow();
-        Permission deleteRole = permissionRepository.findByCode("delete_role").orElseThrow();
-        Permission watchSchedule = permissionRepository.findByCode("watch_schedule").orElseThrow();
+        Permission listUser        = permissionRepository.findByCode("list_user").orElseThrow();
+        Permission createUser      = permissionRepository.findByCode("create_user").orElseThrow();
+        Permission editUser        = permissionRepository.findByCode("edit_user").orElseThrow();
+        Permission deleteUser      = permissionRepository.findByCode("delete_user").orElseThrow();
+        Permission listRole        = permissionRepository.findByCode("list_role").orElseThrow();
+        Permission createRole      = permissionRepository.findByCode("create_role").orElseThrow();
+        Permission editRole        = permissionRepository.findByCode("edit_role").orElseThrow();
+        Permission deleteRole      = permissionRepository.findByCode("delete_role").orElseThrow();
+        Permission watchSchedule   = permissionRepository.findByCode("watch_schedule").orElseThrow();
 
         List<Role> roles = List.of(
                 // Admin
