@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import edu.humboldt.usuarios.Entities.Permission;
 import edu.humboldt.usuarios.Entities.Role;
-import edu.humboldt.usuarios.Repository.PermissionRepository;
 import edu.humboldt.usuarios.Request.CreateRoleRequest;
 import edu.humboldt.usuarios.Request.UpdateRoleRequest;
+import edu.humboldt.usuarios.Service.PermissionService;
 import edu.humboldt.usuarios.Service.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class RoleController {
     @Autowired 
     private RoleService roleService;
     @Autowired 
-    private PermissionRepository permissionRepository;
+    private PermissionService permissionService;
 
     @PreAuthorize("hasAuthority('list_role')")
     @GetMapping
@@ -39,7 +39,7 @@ public class RoleController {
     @PreAuthorize("hasAuthority('create_role')")
     @PostMapping
     public Role create(@RequestBody CreateRoleRequest request) {
-        List<Permission> permissions = permissionRepository.findAllById(request.getPermissionIds());
+        List<Permission> permissions = permissionService.findAllById(request.getPermissionIds());
         
         Role role = new Role(null, request.getName(), request.getDescription(), permissions);
         
@@ -58,7 +58,7 @@ public class RoleController {
         role.setName(request.getName());
         role.setDescription(request.getDescription());
 
-        List<Permission> permissions = permissionRepository.findAllById(request.getPermissionIds());
+        List<Permission> permissions = permissionService.findAllById(request.getPermissionIds());
         role.setPermissions(permissions);
 
         

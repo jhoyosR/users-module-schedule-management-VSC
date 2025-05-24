@@ -19,4 +19,8 @@ public class PermissionService {
     public List<Permission> getAllPermissions() {
         return repository.findAll();
     }
+
+    public List<Permission> findAllById(Iterable<String> ids) {
+        return repository.findAllById(ids);
+    }
 }
