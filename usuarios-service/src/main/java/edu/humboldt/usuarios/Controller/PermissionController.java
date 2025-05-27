@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/permissions")
+@CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
 public class PermissionController {
 
     private final PermissionService permissionService;

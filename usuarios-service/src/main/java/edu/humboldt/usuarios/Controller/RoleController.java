@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @RequestMapping("/api/roles")
+@CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
 public class RoleController {
 
     @Autowired 
