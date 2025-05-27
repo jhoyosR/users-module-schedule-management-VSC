@@ -47,7 +47,7 @@ public class UserController {
         }
         Role role = optionalRole.get();
 
-        User user = new User(null, request.getUsername(), request.getEmail(), passwordEncoder.encode(request.getPassword()), role);
+        User user = new User(null, request.getUsername(), request.getEmail(), passwordEncoder.encode(request.getPassword()), request.isActive(), role);
         return userService.save(user);
     }
 
@@ -68,6 +68,7 @@ public class UserController {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setActive(request.isActive());
         user.setRole(role);
 
         return userService.save(user);

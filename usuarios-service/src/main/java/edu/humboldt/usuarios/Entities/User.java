@@ -29,6 +29,7 @@ public class User implements UserDetails {
     @Indexed(unique = true)
     String email;
     String password;
+    boolean active;
     @DBRef(lazy = true)
     Role role;
 
