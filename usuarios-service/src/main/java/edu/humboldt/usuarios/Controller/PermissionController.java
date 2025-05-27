@@ -2,6 +2,7 @@ package edu.humboldt.usuarios.Controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import edu.humboldt.usuarios.Entities.Permission;
 import edu.humboldt.usuarios.Service.PermissionService;

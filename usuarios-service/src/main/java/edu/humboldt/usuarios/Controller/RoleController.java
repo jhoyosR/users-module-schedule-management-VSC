@@ -11,6 +11,7 @@ import edu.humboldt.usuarios.Request.CreateRoleRequest;
 import edu.humboldt.usuarios.Request.UpdateRoleRequest;
 import edu.humboldt.usuarios.Service.PermissionService;
 import edu.humboldt.usuarios.Service.RoleService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
