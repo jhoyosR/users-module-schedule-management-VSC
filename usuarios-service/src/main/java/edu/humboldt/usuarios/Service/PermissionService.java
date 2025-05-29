@@ -6,15 +6,13 @@ import org.springframework.stereotype.Service;
 
 import edu.humboldt.usuarios.Entities.Permission;
 import edu.humboldt.usuarios.Repository.PermissionRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class PermissionService {
 
     private final PermissionRepository repository;
-
-    public PermissionService(PermissionRepository repository) {
-        this.repository = repository;
-    }
 
     public List<Permission> getAllPermissions() {
         return repository.findAll();

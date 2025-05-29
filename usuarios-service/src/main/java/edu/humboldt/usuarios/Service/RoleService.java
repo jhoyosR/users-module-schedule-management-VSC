@@ -3,15 +3,17 @@ package edu.humboldt.usuarios.Service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.humboldt.usuarios.Entities.Role;
 import edu.humboldt.usuarios.Repository.RoleRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class RoleService {
-    @Autowired private RoleRepository roleRepo;
+
+    private final RoleRepository roleRepo;
 
     public List<Role> findAll() {
         return roleRepo.findAll();

@@ -3,15 +3,17 @@ package edu.humboldt.usuarios.Service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.humboldt.usuarios.Entities.User;
 import edu.humboldt.usuarios.Repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    @Autowired private UserRepository userRepo;
+
+    private final UserRepository userRepo;
 
     public List<User> findAll() {
         return userRepo.findAll();

@@ -10,23 +10,20 @@ import edu.humboldt.usuarios.Request.CreateUserRequest;
 import edu.humboldt.usuarios.Request.UpdateUserRequest;
 import edu.humboldt.usuarios.Service.RoleService;
 import edu.humboldt.usuarios.Service.UserService;
+import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
 public class UserController {
 
-    @Autowired 
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @PreAuthorize("hasAuthority('list_user')")
     @GetMapping
@@ -49,7 +46,15 @@ public class UserController {
         }
         Role role = optionalRole.get();
 
-        User user = new User(null, request.getUsername(), request.getEmail(), passwordEncoder.encode(request.getPassword()), request.isActive(), role);
+        User user = User.builder()
+        .id(null)
+        .username(request.getUsername())
+        .email(request.getEmail())
+        .password(passwordEncoder.encode(request.getPassword()))
+        .active(request.isActive())
+        .role(role)
+        .build();
+        // User user = new User(null, request.getUsername(), request.getEmail(), passwordEncoder.encode(request.getPassword()), request.isActive(), role);
         return userService.save(user);
     }
 

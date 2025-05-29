@@ -11,20 +11,18 @@ import edu.humboldt.usuarios.Request.CreateRoleRequest;
 import edu.humboldt.usuarios.Request.UpdateRoleRequest;
 import edu.humboldt.usuarios.Service.PermissionService;
 import edu.humboldt.usuarios.Service.RoleService;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @RequestMapping("/api/roles")
+@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
 public class RoleController {
 
-    @Autowired 
-    private RoleService roleService;
-    @Autowired 
-    private PermissionService permissionService;
+    private final RoleService roleService;
+    private final PermissionService permissionService;
 
     @PreAuthorize("hasAuthority('list_role')")
     @GetMapping
