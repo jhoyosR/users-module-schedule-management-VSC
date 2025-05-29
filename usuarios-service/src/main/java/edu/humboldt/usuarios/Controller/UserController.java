@@ -54,7 +54,7 @@ public class UserController {
         .active(request.isActive())
         .role(role)
         .build();
-        // User user = new User(null, request.getUsername(), request.getEmail(), passwordEncoder.encode(request.getPassword()), request.isActive(), role);
+        
         return userService.save(user);
     }
 
