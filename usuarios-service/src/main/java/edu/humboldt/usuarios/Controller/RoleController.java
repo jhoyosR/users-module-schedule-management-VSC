@@ -11,6 +11,7 @@ import edu.humboldt.usuarios.Request.CreateRoleRequest;
 import edu.humboldt.usuarios.Request.UpdateRoleRequest;
 import edu.humboldt.usuarios.Service.PermissionService;
 import edu.humboldt.usuarios.Service.RoleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,7 +39,7 @@ public class RoleController {
 
     @PreAuthorize("hasAuthority('create_role')")
     @PostMapping
-    public Role create(@RequestBody CreateRoleRequest request) {
+    public Role create(@Valid @RequestBody CreateRoleRequest request) {
         List<Permission> permissions = permissionService.findAllById(request.getPermissionIds());
         
         Role role = new Role(null, request.getName(), request.getDescription(), permissions);
@@ -48,7 +49,7 @@ public class RoleController {
 
     @PreAuthorize("hasAuthority('edit_role')")
     @PutMapping("/{id}")
-    public Role update(@PathVariable String id, @RequestBody UpdateRoleRequest request) {
+    public Role update(@PathVariable String id, @Valid @RequestBody UpdateRoleRequest request) {
         Optional<Role> optionalRole = roleService.findById(id);
         if (optionalRole.isEmpty()) {
             return null;

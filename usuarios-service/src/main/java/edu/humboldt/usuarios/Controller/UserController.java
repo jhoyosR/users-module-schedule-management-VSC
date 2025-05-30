@@ -10,6 +10,7 @@ import edu.humboldt.usuarios.Request.CreateUserRequest;
 import edu.humboldt.usuarios.Request.UpdateUserRequest;
 import edu.humboldt.usuarios.Service.RoleService;
 import edu.humboldt.usuarios.Service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,7 +40,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('create_user')")
     @PostMapping
-    public User create(@RequestBody CreateUserRequest request) {
+    public User create(@Valid @RequestBody CreateUserRequest request) {
         Optional<Role> optionalRole = roleService.findById(request.getRoleId());
         if (optionalRole.isEmpty()) {
             return null;
@@ -60,7 +61,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('edit_user')")
     @PutMapping("/{id}")
-    public User update(@PathVariable String id, @RequestBody UpdateUserRequest request) {
+    public User update(@PathVariable String id,@Valid @RequestBody UpdateUserRequest request) {
         Optional<User> optionalUser = userService.findById(id);
         if (optionalUser.isEmpty()) {
             return null;
