@@ -1,19 +1,16 @@
 package edu.humboldt.usuarios.Controller;
 
-
 import java.util.List;
-import java.util.Optional;
 import org.springframework.web.bind.annotation.*;
 
-import edu.humboldt.usuarios.Entities.Permission;
 import edu.humboldt.usuarios.Entities.Role;
 import edu.humboldt.usuarios.Request.CreateRoleRequest;
 import edu.humboldt.usuarios.Request.UpdateRoleRequest;
-import edu.humboldt.usuarios.Service.PermissionService;
 import edu.humboldt.usuarios.Service.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
@@ -23,52 +20,34 @@ import org.springframework.security.access.prepost.PreAuthorize;
 public class RoleController {
 
     private final RoleService roleService;
-    private final PermissionService permissionService;
 
     @PreAuthorize("hasAuthority('list_role')")
     @GetMapping
-    public List<Role> getAll() { 
-        return roleService.findAll(); 
+    public ResponseEntity<List<Role>> getAll() { 
+        return roleService.getAllRoles(); 
     }
 
     @PreAuthorize("hasAuthority('list_role')")
     @GetMapping("/{id}")
-    public Optional<Role> getById(@PathVariable String id) {
-        return roleService.findById(id);
+    public ResponseEntity<Role> getById(@PathVariable String id) {
+        return roleService.getRoleById(id);
     }
 
     @PreAuthorize("hasAuthority('create_role')")
     @PostMapping
-    public Role create(@Valid @RequestBody CreateRoleRequest request) {
-        List<Permission> permissions = permissionService.findAllById(request.getPermissionIds());
-        
-        Role role = new Role(null, request.getName(), request.getDescription(), permissions);
-        
-        return roleService.save(role);
+    public ResponseEntity<Role> create(@Valid @RequestBody CreateRoleRequest request) {
+        return roleService.createRole(request);
     }
 
     @PreAuthorize("hasAuthority('edit_role')")
     @PutMapping("/{id}")
-    public Role update(@PathVariable String id, @Valid @RequestBody UpdateRoleRequest request) {
-        Optional<Role> optionalRole = roleService.findById(id);
-        if (optionalRole.isEmpty()) {
-            return null;
-        }
-
-        Role role = optionalRole.get();
-        role.setName(request.getName());
-        role.setDescription(request.getDescription());
-
-        List<Permission> permissions = permissionService.findAllById(request.getPermissionIds());
-        role.setPermissions(permissions);
-
-        
-        return roleService.save(role);
+    public ResponseEntity<Role> update(@PathVariable String id, @Valid @RequestBody UpdateRoleRequest request) {
+        return roleService.updateRole(id, request);
     }
 
     @PreAuthorize("hasAuthority('delete_role')")
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
-        roleService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        return roleService.deleteRole(id);
     }
 }

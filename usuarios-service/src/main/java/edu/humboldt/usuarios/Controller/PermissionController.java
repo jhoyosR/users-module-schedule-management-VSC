@@ -1,5 +1,6 @@
 package edu.humboldt.usuarios.Controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class PermissionController {
 
     @PreAuthorize("hasAuthority('list_permission')")
     @GetMapping
-    public List<Permission> getAllPermissions() {
+    public ResponseEntity<List<Permission>> getAll() {
         return permissionService.getAllPermissions();
     }
 }

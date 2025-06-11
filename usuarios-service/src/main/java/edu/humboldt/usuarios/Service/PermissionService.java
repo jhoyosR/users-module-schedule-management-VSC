@@ -2,6 +2,7 @@ package edu.humboldt.usuarios.Service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import edu.humboldt.usuarios.Entities.Permission;
@@ -12,13 +13,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PermissionService {
 
-    private final PermissionRepository repository;
+    private final PermissionRepository permissionRepository;
 
-    public List<Permission> getAllPermissions() {
-        return repository.findAll();
+    public ResponseEntity<List<Permission>> getAllPermissions() {
+        List<Permission> permissions = permissionRepository.findAll();
+        return ResponseEntity.ok(permissions);
     }
 
     public List<Permission> findAllById(Iterable<String> ids) {
-        return repository.findAllById(ids);
+        return permissionRepository.findAllById(ids);
     }
 }
