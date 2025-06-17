@@ -7,6 +7,7 @@ import edu.humboldt.usuarios.Entities.User;
 import edu.humboldt.usuarios.Request.CreateUserRequest;
 import edu.humboldt.usuarios.Request.UpdateUserRequest;
 import edu.humboldt.usuarios.Service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
+@Tag(name = "User", description = "Controller for Users")
 public class UserController {
 
     private final UserService userService;

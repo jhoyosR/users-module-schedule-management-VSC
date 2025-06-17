@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import edu.humboldt.usuarios.Entities.Permission;
 import edu.humboldt.usuarios.Service.PermissionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/permissions")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
+@Tag(name = "Permission", description = "Controller for Permissions")
 public class PermissionController {
 
     private final PermissionService permissionService;

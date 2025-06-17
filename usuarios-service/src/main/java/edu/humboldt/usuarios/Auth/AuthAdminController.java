@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/auth/encripted/admin")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
+@Tag(name = "Admins Authentication", description = "Controller for Admins Authentication")
 public class AuthAdminController {
     
     private final AuthAdminService authAdminService;
