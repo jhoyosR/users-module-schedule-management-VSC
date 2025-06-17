@@ -2,6 +2,7 @@ package edu.humboldt.usuarios.Request;
 
 import java.util.List;
 
+import edu.humboldt.usuarios.Validation.UniqueRoleName;
 import jakarta.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ public class UpdateRoleRequest {
     
     @NotBlank(message = "El nombre del rol es obligatorio")
     @Size(min = 3, max = 50, message = "El nombre debe tener entre 3 y 50 caracteres")
+    @UniqueRoleName
     private String name;
 
     @NotBlank(message = "La descripción es obligatoria")
