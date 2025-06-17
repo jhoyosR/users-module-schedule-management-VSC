@@ -3,7 +3,6 @@ package edu.humboldt.usuarios.Auth;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import edu.humboldt.usuarios.Entities.User;
 import edu.humboldt.usuarios.Jwt.JwtService;
 import edu.humboldt.usuarios.Repository.UserRepository;
 
@@ -45,7 +43,7 @@ class AuthAdminServiceTest {
         UserDetails user = mock(UserDetails.class);
 
         // Se configura el mock del repositorio para que devuelva el usuario cuando se busque por nombre.
-        when(userRepository.findByUsername("admin")).thenReturn(Optional.of(user));
+        // when(userRepository.findByUsername("admin")).thenReturn(Optional.of(user));
         // Se configura el servicio JWT para que devuelva un token fijo.
         when(jwtService.getToken(user)).thenReturn("tok");
 
