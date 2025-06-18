@@ -11,4 +11,5 @@ import edu.humboldt.usuarios.Entities.Role;
 public interface RoleRepository extends MongoRepository<Role, String> {
     Optional<Role> findByName(String name);
     boolean existsByName(String name);
+    boolean existsByNameAndIdNot(String email, String id);
 }

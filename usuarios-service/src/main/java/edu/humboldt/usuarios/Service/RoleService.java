@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import edu.humboldt.usuarios.Entities.Permission;
 import edu.humboldt.usuarios.Entities.Role;
+import edu.humboldt.usuarios.Exception.DuplicateResourceException;
 import edu.humboldt.usuarios.Repository.RoleRepository;
 import edu.humboldt.usuarios.Request.CreateRoleRequest;
 import edu.humboldt.usuarios.Request.UpdateRoleRequest;
@@ -46,6 +47,10 @@ public class RoleService {
         Optional<Role> optionalRole = roleRepository.findById(id);
         if (optionalRole.isEmpty()) {
             return ResponseEntity.notFound().build();
+        }
+
+        if (roleRepository.existsByNameAndIdNot(request.getName(), id)) {
+            throw new DuplicateResourceException("El nombre del rol ya está en uso");
         }
 
         Role role = optionalRole.get();

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import edu.humboldt.usuarios.Entities.Role;
 import edu.humboldt.usuarios.Entities.User;
+import edu.humboldt.usuarios.Exception.DuplicateResourceException;
 import edu.humboldt.usuarios.Repository.UserRepository;
 import edu.humboldt.usuarios.Request.CreateUserRequest;
 import edu.humboldt.usuarios.Request.UpdateUserRequest;
@@ -61,6 +62,14 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isEmpty()) {
             return ResponseEntity.notFound().build();
+        }
+
+        if (userRepository.existsByUsernameAndIdNot(request.getUsername(), id)) {
+            throw new DuplicateResourceException("El nombre de usuario ya está en uso");
+        }
+        
+        if (userRepository.existsByEmailAndIdNot(request.getEmail(), id)) {
+            throw new DuplicateResourceException("El correo ya está en uso");
         }
 
         ResponseEntity<Role> roleResponse = roleService.getRoleById(request.getRoleId());
