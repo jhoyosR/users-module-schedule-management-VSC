@@ -7,6 +7,7 @@ import edu.humboldt.usuarios.Entities.Role;
 import edu.humboldt.usuarios.Request.CreateRoleRequest;
 import edu.humboldt.usuarios.Request.UpdateRoleRequest;
 import edu.humboldt.usuarios.Service.RoleService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +17,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @RestController
 @RequestMapping("/api/roles")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
+@CrossOrigin(origins = "http://localhost:4200") // Para permitir peticiones desde el front
+@Tag(name = "Role", description = "Controller for Roles")
 public class RoleController {
 
     private final RoleService roleService;

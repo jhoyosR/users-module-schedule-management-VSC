@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import jakarta.validation.constraints.*;
 
 @Data
@@ -24,10 +23,6 @@ public class UpdateUserRequest {
         message = "El correo debe pertenecer a los dominios cue.edu.co o unihumboldt.edu.co"
     )
     private String email;
-
-    @NotBlank(message = "La contraseña es obligatoria")
-    @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
-    private String password;
 
     private boolean active;
 

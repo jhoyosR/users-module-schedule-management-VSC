@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import edu.humboldt.usuarios.Exception.DuplicateResourceException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -32,5 +34,13 @@ public class GlobalExceptionHandler {
         response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<Map<String, Object>> handleDuplicateResource(DuplicateResourceException ex) {
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("status", HttpStatus.BAD_REQUEST.value());
+        resp.put("error", ex.getMessage());
+        return ResponseEntity.badRequest().body(resp);
     }
 }
