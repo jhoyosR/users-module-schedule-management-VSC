@@ -138,7 +138,6 @@ class UserServiceTest {
         UpdateUserRequest req = UpdateUserRequest.builder()
                 .username("up")
                 .email("up@cue.edu.co")
-                .password("secret")
                 .active(true)
                 .roleId("roleId")
                 .build();

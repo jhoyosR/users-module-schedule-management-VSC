@@ -17,7 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
+@CrossOrigin(origins = "http://localhost:4200") // Para permitir peticiones desde el front
 @Tag(name = "User", description = "Controller for Users")
 public class UserController {
 

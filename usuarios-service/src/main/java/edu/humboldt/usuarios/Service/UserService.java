@@ -82,7 +82,6 @@ public class UserService {
         User user = optionalUser.get();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setActive(request.isActive());
         user.setRole(role);
 
