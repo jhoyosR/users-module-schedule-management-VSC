@@ -52,11 +52,10 @@ public class PasswordResetService {
         log.info("Iniciando recuperación de contraseña para: {}", email);
         
         // Verificar que el usuario existe en la base de datos
-        User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> {
-                log.warn("Intento de recuperación para email no registrado: {}", email);
-                return new RuntimeException("Usuario no encontrado");
-            });
+        if (userRepository.findByEmail(email).isEmpty()) {
+            log.warn("Intento de recuperación para email no registrado: {}", email);
+            throw new RuntimeException("Usuario no encontrado");
+        }
         
         // Invalidar cualquier token anterior del mismo email para seguridad
         tokenRepository.findByEmailAndUsedFalse(email)
