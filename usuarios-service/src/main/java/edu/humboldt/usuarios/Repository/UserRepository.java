@@ -14,4 +14,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     boolean existsByEmail(String email);
     boolean existsByUsernameAndIdNot(String username, String id);
     boolean existsByEmailAndIdNot(String email, String id);
+    // Comprueba si existe algún usuario cuyo role.id sea el dado
+    boolean existsByRole_Id(String roleId);
 }

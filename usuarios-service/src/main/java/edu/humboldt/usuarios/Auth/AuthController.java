@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173") // Para permitir peticiones desde el front
+@CrossOrigin(origins = "http://localhost:4200") // Para permitir peticiones desde el front
 @Tag(name = "Authentication", description = "Controller for Authentication")
 public class AuthController {
     

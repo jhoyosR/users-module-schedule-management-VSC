@@ -3,6 +3,7 @@ package edu.humboldt.usuarios.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import edu.humboldt.usuarios.Entities.Permission;
 import edu.humboldt.usuarios.Entities.Role;
 import edu.humboldt.usuarios.Exception.DuplicateResourceException;
 import edu.humboldt.usuarios.Repository.RoleRepository;
+import edu.humboldt.usuarios.Repository.UserRepository;
 import edu.humboldt.usuarios.Request.CreateRoleRequest;
 import edu.humboldt.usuarios.Request.UpdateRoleRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class RoleService {
 
     private final RoleRepository roleRepository;
     private final PermissionService permissionService;
+    private final UserRepository userRepository;
 
     public ResponseEntity<List<Role>> getAllRoles() {
         List<Role> roles = roleRepository.findAll();
@@ -65,6 +68,11 @@ public class RoleService {
     public ResponseEntity<Void> deleteRole(String id) {
         if (!roleRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
+        }
+
+        if (userRepository.existsByRole_Id(id)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                                    .build();
         }
 
         roleRepository.deleteById(id);
