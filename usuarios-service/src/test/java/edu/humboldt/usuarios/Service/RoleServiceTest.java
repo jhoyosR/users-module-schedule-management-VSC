@@ -2,6 +2,7 @@ package edu.humboldt.usuarios.Service;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,8 @@ class RoleServiceTest {
 
     @Mock
     private PermissionService permissionService;
+    @Mock
+    private edu.humboldt.usuarios.Repository.UserRepository userRepository;
 
     @InjectMocks
     private RoleService roleService;
@@ -149,10 +152,12 @@ class RoleServiceTest {
     @Test
     void deleteRole_ok() {
         when(roleRepository.existsById("role1")).thenReturn(true);
+        when(userRepository.existsByRole_Id("role1")).thenReturn(false);
 
         ResponseEntity<Void> response = roleService.deleteRole("role1");
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         verify(roleRepository).deleteById("role1");
+        verify(userRepository).existsByRole_Id("role1");
     }
 }

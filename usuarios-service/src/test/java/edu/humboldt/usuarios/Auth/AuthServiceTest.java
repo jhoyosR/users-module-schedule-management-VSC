@@ -80,10 +80,11 @@ when(jwtService.getToken(user)).thenReturn("tok");
 
         when(roleRepository.findByName("Estudiante")).thenReturn(Optional.of(studentRole));
         when(passwordEncoder.encode("pw")).thenReturn("enc");
+        when(jwtService.getToken(any(User.class))).thenReturn("tok");
 
         AuthResponse res = authService.register(req);
 
         verify(userRepository).save(any(User.class));
-        assertThat(res.getToken()).isNotNull();
+        assertThat(res.getToken()).isEqualTo("tok");
     }
 }

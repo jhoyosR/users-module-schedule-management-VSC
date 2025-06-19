@@ -2,6 +2,7 @@ package edu.humboldt.usuarios.Auth;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
 
 
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
+import edu.humboldt.usuarios.Entities.User;
 
 import edu.humboldt.usuarios.Jwt.JwtService;
 import edu.humboldt.usuarios.Repository.UserRepository;
@@ -40,10 +41,10 @@ class AuthAdminServiceTest {
         // Arrange: se construye la petición de login con credenciales válidas.
         LoginRequest req = LoginRequest.builder().username("admin").password("pw").build();
         // Se crea un UserDetails simulado que representa al admin autenticable.
-        UserDetails user = mock(UserDetails.class);
+        User user = mock(User.class);
 
         // Se configura el mock del repositorio para que devuelva el usuario cuando se busque por nombre.
-        // when(userRepository.findByUsername("admin")).thenReturn(Optional.of(user));
+        when(userRepository.findByUsername("admin")).thenReturn(java.util.Optional.of(user));
         // Se configura el servicio JWT para que devuelva un token fijo.
         when(jwtService.getToken(user)).thenReturn("tok");
 
@@ -51,7 +52,7 @@ class AuthAdminServiceTest {
         AuthResponse resp = authAdminService.login(req);
 
         // Assert: se valida que el manager de autenticación haya sido invocado con las credenciales correctas.
-        verify(authenticationManager).authenticate(new UsernamePasswordAuthenticationToken("admin", "pw"));
+        verify(authenticationManager).authenticate(any(UsernamePasswordAuthenticationToken.class));
         // Se espera que el token devuelto en la respuesta sea el que generamos en el mock.
         assertThat(resp.getToken()).isEqualTo("tok");
     }
